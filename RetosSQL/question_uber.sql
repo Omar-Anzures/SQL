@@ -10,9 +10,6 @@ por dólar" (definida como distancia_a_viajar/costo_monetario), primero sume los
  medio (RMSE) usando la fórmula RMSE = sqrt(mean(square(actual - forecast))). 
  Informe el RMSE redondeado a dos decimales.
 */
-
-
-
 CREATE TABLE uber_request_logs(
     request_id int, 
     request_date datetime, 
