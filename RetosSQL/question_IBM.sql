@@ -8,7 +8,8 @@ viernes y el promedio de gasto.
 */
 
 CREATE TABLE user_purchases(
-    user_id int, date date, 
+    user_id int, 
+    date date, 
     amount_spent float, 
     day_name varchar(15));
 
@@ -40,3 +41,27 @@ INSERT INTO user_purchases VALUES(1047,'2023-01-01',288,'Sunday'),
                                 (1090,'2023-02-18',146,'Saturday'),
                                 (1062,'2023-02-21',193,'Tuesday'),
                                 (1023,'2023-02-24',259,'Friday')
+
+--INSERT INTO user_purchases VALUES(1047,'2023-12-01',288,'Friday')
+
+
+WITH identify_friday AS(
+
+SELECT 
+    user_id,
+    DATE,
+    amount_spent,
+    DATEPART(WEEK,DATE) AS week_number,
+    day_name
+FROM user_purchases
+WHERE day_name = 'Friday'
+    AND DATEPART(MONTH,DATE) in (1,2,3)
+
+)
+
+SELECT 
+    week_number,
+    ROUND(AVG(amount_spent),2) AS avg_amount_spent
+FROM identify_friday
+GROUP BY week_number
+ORDER BY week_number
